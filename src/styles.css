@@ -1,0 +1,288 @@
+/* ================================
+   src/styles.css  (full file)
+   - 팔레트: 배경/글자/박스/핑크 통일
+   - 홈: 중앙 헤더 + 9열 정사각형 박스
+   - 문제 페이지: 좌측 n번 / 우측 메인으로 (header.split)
+   - 입력 50% / 가이드 25% / 제출 25%
+   - 버튼: 배경은 흰색, 테두리/글자색만 강조
+   - 해결된 박스는 흰색으로 변환
+   ================================ */
+
+/* ---------- Colors (palette) ---------- */
+:root {
+  --bg: #f0f3f1; /* 전체 배경 */
+  --text: #8fb098; /* 기본 글자색 */
+  --box: #dfeed8; /* 박스/제출 버튼 포인트 */
+  --pink: #ffaebc; /* 가이드 버튼 포인트 */
+  --white: #ffffff;
+
+  --muted: #8a8f86; /* 보조 텍스트 */
+  --ok: #2f9d62; /* 성공 텍스트 */
+  --error: #e84545; /* 에러 텍스트 */
+}
+
+/* ---------- Reset / Base ---------- */
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Noto Sans KR", sans-serif;
+}
+
+/* 링크 밑줄 제거 + 색상 상속 */
+a,
+a:link,
+a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 컨테이너 공통 */
+.app-container {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Headers ---------- */
+/* 기본(홈 등): 중앙 상단 정렬 */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px; /* 글씨 라인 간격 조금 늘림 */
+  margin-bottom: 40px; /* 헤더와 그리드 사이 간격 크게 */
+}
+.header h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+.header .sub {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* 문제 페이지 전용: 좌측 n번 / 우측 메인으로 */
+.header.split {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-align: initial;
+  gap: 0;
+}
+.header.split h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.3px;
+}
+
+/* ---------- Grid (Home) ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 한 줄 7칸 (원하면 조절 가능) */
+  gap: 24px; /* 박스 사이 여백 넉넉하게 */
+  justify-content: center;
+  padding: 0 10px;
+}
+
+/* 하단 맞춘 개수 */
+.grid-footer {
+  margin-top: 14px;
+  text-align: center;
+  color: var(--text);
+  font-weight: 800;
+}
+
+/* ---------- Number Box (Home) ---------- */
+/* 기본(미해결): 연연초록 박스, 해결: 흰색 */
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  aspect-ratio: 1 / 1; /* 정사각형 */
+  border-radius: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: var(--box); /* #dfeed8 */
+  color: var(--text); /* #8fb098 */
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease,
+    color 0.12s ease, border-color 0.12s ease;
+}
+.box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+}
+.box:active {
+  transform: translateY(0);
+}
+
+.box .num {
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* 맞춘 박스 */
+.box.solved {
+  pointer-events: none;
+  cursor: not-allowed;
+  background: var(--white);
+  color: var(--text);
+  border-color: var(--box);
+}
+.box.solved .letter {
+  font-size: 22px;
+  font-weight: 900;
+  margin-bottom: 6px;
+  letter-spacing: -0.3px;
+}
+.box.solved .num-mini {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ---------- Card / Form (Question) ---------- */
+.card {
+  background: var(--white);
+  border-radius: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  padding: 22px;
+}
+
+/* 폼 레이아웃: 입력 50% / 버튼 50% (가이드 25% + 제출 25%) */
+.form-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  align-items: stretch;
+}
+.col-input {
+  flex: 0 0 50%;
+}
+.col-actions {
+  flex: 0 0 50%;
+  display: flex;
+  gap: 10px;
+}
+.col-actions .btn {
+  flex: 1;
+} /* 가이드/제출 1:1 */
+
+/* 인풋 */
+.input {
+  width: 100%;
+  border: 2px solid #e7e7e7;
+  border-radius: 12px;
+  font-size: 16px;
+  padding: 12px 14px;
+  outline: none;
+  color: var(--text);
+  background: var(--white);
+}
+.input::placeholder {
+  color: #b8c7b9;
+}
+.input:focus {
+  border-color: var(--box);
+}
+
+/* ---------- Buttons ---------- */
+/* 공통: 배경은 흰색, 테두리/글자색으로 강조 */
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 44px;
+  padding: 0 16px;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1;
+
+  border-radius: 12px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  background: var(--white);
+  color: var(--text);
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease,
+    border-color 0.12s ease, color 0.12s ease;
+}
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+.btn:active {
+  transform: translateY(0);
+}
+
+/* 가이드 = 핑크 테두리/글자 */
+.btn.guide {
+  border-color: var(--pink); /* #FFAEBC */
+  color: var(--pink);
+}
+
+/* 제출 = 연연초록 테두리/글자 */
+.btn.submit {
+  border-color: var(--box); /* #dfeed8 */
+  color: var(--box);
+}
+
+/* 회색 보조 (메인으로 등) */
+.btn.muted {
+  border-color: #e5e5e5;
+  color: #444;
+  box-shadow: none;
+}
+
+/* 피드백 텍스트 */
+.feedback {
+  margin-top: 10px;
+  font-weight: 700;
+}
+.feedback.ok {
+  color: var(--ok);
+}
+.feedback.error {
+  color: var(--error);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 560px) {
+  .form-row {
+    flex-direction: column;
+  }
+  .col-input,
+  .col-actions {
+    flex: 0 0 auto;
+  }
+  .btn {
+    width: 100%;
+  }
+}
