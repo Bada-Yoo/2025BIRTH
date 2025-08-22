@@ -3,7 +3,7 @@ import NumberBox from "../components/NumberBox.jsx";
 import { SECRET_43 } from "../utils/secretString.js";
 import { useEffect, useState } from "react";
 
-const TOTAL = 43;
+const TOTAL = 30;
 const storageKey = "quiz43_solved_map_v1";
 
 export default function Home() {

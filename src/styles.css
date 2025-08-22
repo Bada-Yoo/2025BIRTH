@@ -286,3 +286,29 @@ a:visited {
     width: 100%;
   }
 }
+/* ===== 배경 데코 ===== */
+.decor{
+  position: fixed;   /* 스크롤해도 고정 */
+  inset: 0;
+  z-index: 0;        /* 컨텐츠보다 뒤 */
+  pointer-events: none;
+}
+
+.decor-img{
+  position: absolute;
+  opacity: 0.14;                     /* 너무 튀지 않게 */
+  filter: drop-shadow(0 12px 22px rgba(0,0,0,.12));
+  user-select: none;
+  will-change: transform;
+}
+
+/* 반응형: 좁은 화면에서는 조금 줄이거나 일부 숨김 */
+@media (max-width: 1200px){
+  .decor-img{ opacity: .1 }
+}
+@media (max-width: 900px){
+  .decor-img{ opacity: .08; width: 110px !important; }
+}
+@media (max-width: 640px){
+  .decor-img{ display: none; } /* 모바일에선 데코 숨김(원하면 조절) */
+}

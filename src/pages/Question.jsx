@@ -2,7 +2,7 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import { ANSWER_KEY } from "../utils/answerKey.js";
 
-const TOTAL = 43;
+const TOTAL = 30;
 const storageKey = "quiz43_solved_map_v1";
 
 function normalizeAnswer(s) {
